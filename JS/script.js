@@ -86,10 +86,8 @@ let salaries = {
   };
 
 let sum = 0;  
-function bablo(sum) {
-    for (let babki in salaries) {
-        sum += salaries[babki];
-    }
+for (let babki in salaries) {
+    sum += salaries[babki];
 }
 
 console.log(sum);
