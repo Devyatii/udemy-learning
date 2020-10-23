@@ -1,79 +1,97 @@
 'use strict';
 
-const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+/* Задание на урок:
+
+1) Первую часть задания повторить по уроку
+
+2) Создать функцию showMyDB, которая будет проверять свойство privat. Если стоит в позиции
+false - выводит в консоль главный объект программы
+
+3) Создать функцию writeYourGenres в которой пользователь будет 3 раза отвечать на вопрос 
+"Ваш любимый жанр под номером ${номер по порядку}". Каждый ответ записывается в массив данных
+genres
+
+P.S. Функции вызывать не обязательно*/
+
+let numberOfFilms;
+
+function start() {
+    numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?', '');
+
+    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+        numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?', '');
+    }
+}
+
+start();
+
 const personalMovieDB = {
     count: numberOfFilms,
     movies: {},
     actors: {},
     genres: [],
-    privat: false
+    privat: true
 };
-// const movie = prompt('Один из последних просмотренных фильмов?', ''),
-//       rate = prompt('На сколько оцените его?', ''),
-//       movie2 = prompt('Один из последних просмотренных фильмов?', ''),
-//       rate2 = prompt('На сколько оцените его?', '');
-// personalMovieDB.movies[movie] = rate;
-// personalMovieDB.movies[movie2] = rate2;
-if (personalMovieDB.count < 10) {
-    alert('Ты лох, а не киноман, марш смотреть кино, быдло безграмотное');
-} else if (10 <= personalMovieDB.count < 30) {
-    alert('Ну ниче так, но все равно мало');
-} else if (30 <= personalMovieDB.count) {
-    alert('А ты не такой уж и тупой, с тобой можно хотя бы буквами говорить');
-} else {
-    alert('Не, ну ты что вводишь то!');
-}
 
-for (let i = 0; i < 2; i++) {
-    const movie = prompt('Один из последних просмотренных фильмов?', ''),
-          rate = prompt('На сколько оцените его?', '');
-
-    if (movie === null || rate === null || movie === '' || rate === '' || movie.length >= 50) {
-        alert('error');
-        i--;
+function detectPersonalLevel() {
+    if (personalMovieDB.count < 10) {
+        alert('Ты лох, а не киноман, марш смотреть кино, быдло безграмотное');
+    } else if (10 <= personalMovieDB.count < 30) {
+        alert('Ну ниче так, но все равно мало');
+    } else if (30 <= personalMovieDB.count) {
+        alert('А ты не такой уж и тупой, с тобой можно хотя бы буквами говорить');
     } else {
-        personalMovieDB.movies[movie] = rate;
+        alert('Не, ну ты что вводишь то!');
     }
-
-    personalMovieDB.movies[movie] = rate;
 }
 
-console.log(personalMovieDB);
+detectPersonalLevel();
 
-let num = 20;
+function rememberMyFilms() {
+    for (let i = 0; i < 2; i++) {
+        const movie = prompt('Один из последних просмотренных фильмов?', ''),
+            rate = prompt('На сколько оцените его?', '');
 
-function showFirstMessage(text) {
-    console.log(text);
-    let num = 10;
+        if (movie === null || rate === null || movie === '' || rate === '' || movie.length >= 50) {
+            alert('error');
+            i--;
+        } else {
+            personalMovieDB.movies[movie] = rate;
+        }
+
+        personalMovieDB.movies[movie] = rate;
+        }
 }
 
-showFirstMessage("Wululu");
-console.log('num');
+rememberMyFilms();
 
-function calc(a, b) {
-    return (a + b);
+function writeYourGenres() {
+    for (let i = 1; i <= 3; i++) {
+        const rating = prompt(`Ваш любимый жанр под номером ${i}`);
+        if (rating === null || rating === '') {
+            alert('error');
+            i--;
+        } else {
+            personalMovieDB.genres.push(rating);
+        }
+    }
 }
 
-console.log(calc(4, 3));
+writeYourGenres();
 
-function ret() {
-    let num = 50;
-    return num;
+// function showMyDB() {
+//     if (personalMovieDB.privat == false) {
+//         console.log(personalMovieDB);
+//     }
+// }
+
+// showMyDB();
+
+function showMyDB (hidden) {
+    if(!hidden) {
+        console.log(personalMovieDB);
+    }
 }
 
-const anotherNum = ret();
+showMyDB(personalMovieDB.privat);
 
-console.log(anotherNum);
-
-let salaries = {
-    John: 100,
-    Ann: 160,
-    Pete: 130
-  };
-
-let sum = 0;  
-for (let babki in salaries) {
-    sum += salaries[babki];
-}
-
-console.log(sum);
